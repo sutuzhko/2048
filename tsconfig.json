@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
-    "moduleResolution": "node"
-  }
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["vitest/globals"]
+  },
+  "include": ["src", "src/types/global.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }

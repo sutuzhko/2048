@@ -1,76 +1,19 @@
-import '../public/index.css';
-import { Game } from './features/game';
-import { Board } from './shared/ui/components/board';
-import { Button } from './shared/ui/components/button';
-import { Cell } from './shared/ui/components/cell';
-import { Score } from './shared/ui/components/score';
-import { Tile } from './shared/ui/components/tile';
-import { canvasHeight, canvasWidth, config } from './shared/utils/constants';
+import './app/styles/tokens.css';
+import './app/styles/base.css';
+import './app/styles/game.css';
+import { GameEngine } from './features/game';
+import { GameView } from './features/game/ui';
+import type { Lang, Theme } from './shared/types/game';
 
-const canvas: HTMLCanvasElement = document.querySelector('#canvas');
+const mount = document.getElementById('root');
+if (!mount) throw new Error('Root element #root not found');
 
-const ctx = canvas.getContext('2d');
-canvas.width = canvasWidth;
-canvas.height = canvasHeight;
-const game = new Game({
-  canvas,
-  ctx,
-  config,
-  engine: {
-    tile: ({
-      ctx,
-      coordinates,
-      config,
-      value,
-    }) => new Tile({
-      ctx,
-      coordinates,
-      value,
-      config,
-    }),
-    cell: ({
-      ctx,
-      size,
-      config,
-      coordinates,
-    }) => new Cell({
-      ctx,
-      size,
-      config,
-      coordinates,
-    }),
-    board: ({
-      ctx,
-      config,
-    }) => new Board({
-      ctx,
-      config,
-    }),
-    score: ({
-      ctx,
-      config,
-      position,
-      value,
-      title,
-    }) => new Score({
-      ctx,
-      config,
-      position,
-      value,
-      title,
-    }),
-    button: ({
-      ctx,
-      config,
-      position,
-      title,
-    }) => new Button({
-      ctx,
-      config,
-      position,
-      title,
-    }),
-  },
-});
-game.start();
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const defaults: { theme: Theme; lang: Lang } = {
+  theme: prefersDark ? 'dark' : 'light',
+  lang: 'ru',
+};
 
+const engine = new GameEngine(defaults);
+new GameView(mount, engine);
+engine.load();

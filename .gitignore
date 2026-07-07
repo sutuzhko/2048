@@ -89,3 +89,13 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/.playwright/
+.last-run.json
+
+# Temp for demo.gif recording
+/docs/.demo-tmp/

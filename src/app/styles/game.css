@@ -1,0 +1,287 @@
+.app {
+  min-height: 100vh;
+  padding: 34px 18px 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+.game {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/*
+ * Шапка на грид-сетке: бренд и переключатели в верхней строке, а панели статистики —
+ * отдельной строкой во всю ширину. Так большие числа счёта/рекорда/ходов не вылезают
+ * даже на 320px, без отдельных брейкпоинтов.
+ */
+.game__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'brand toggles'
+    'scores scores';
+  gap: 16px 12px;
+  align-items: start;
+}
+
+.brand {
+  grid-area: brand;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand__title {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+.brand__subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 190px;
+  line-height: 1.35;
+}
+
+.toggles {
+  grid-area: toggles;
+  justify-self: end;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.seg {
+  display: flex;
+  gap: 2px;
+  background: var(--panel);
+  border-radius: 9px;
+  padding: 3px;
+}
+
+.seg__btn {
+  /* Единая высота для текстовых и иконочных кнопок — переключатели языка и темы
+     оказываются одной высоты. */
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--muted);
+  border: none;
+  border-radius: 7px;
+  padding: 0 9px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.seg__btn.is-active {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.seg__btn--icon {
+  width: 30px;
+  padding: 0;
+}
+
+/* Иконки тем наследуют цвет кнопки (currentColor): muted → неактивна, bg → активна. */
+.seg__btn--icon svg {
+  display: block;
+}
+
+.scores {
+  grid-area: scores;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.panel {
+  position: relative;
+  background: var(--panel);
+  border-radius: var(--radius-panel);
+  padding: 7px 12px;
+  min-width: 0;
+  text-align: center;
+}
+
+.panel__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.panel__value {
+  /* Тянется вниз на узких экранах, чтобы длинные числа помещались в колонку. */
+  font-size: clamp(17px, 5.2vw, 23px);
+  font-weight: 700;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.score-pop {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  pointer-events: none;
+  animation: scoreRise 620ms ease-out forwards;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease,
+    border-color 0.15s ease;
+}
+
+.btn--primary {
+  background: var(--button);
+  color: var(--button-fg);
+  padding: 10px 18px;
+}
+
+.btn--primary:hover {
+  filter: brightness(1.06);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--fg);
+  border: 1.5px solid var(--line);
+  padding: 11px 20px;
+}
+
+.btn--ghost:hover {
+  border-color: var(--fg);
+}
+
+.board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  background: var(--board);
+  border-radius: var(--radius-board);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  touch-action: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.board__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius-board);
+  background: var(--overlay);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 40;
+}
+
+.overlay.is-visible {
+  display: flex;
+  animation: overlayIn 0.25s ease;
+}
+
+.overlay__title {
+  font-size: 44px;
+  font-weight: 700;
+  animation: panelIn 0.35s ease 0.05s both;
+}
+
+.overlay--win .overlay__title {
+  color: var(--accent);
+}
+
+.overlay--lose .overlay__title {
+  color: var(--fg);
+}
+
+.overlay__sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.overlay__actions {
+  display: flex;
+  gap: 10px;
+  animation: panelIn 0.35s ease 0.12s both;
+}
+
+.howto {
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app,
+  .overlay.is-visible,
+  .overlay__title,
+  .overlay__actions,
+  .score-pop {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand__title {
+    font-size: 38px;
+  }
+  .app {
+    gap: 40px;
+    padding: 24px 14px 56px;
+  }
+}

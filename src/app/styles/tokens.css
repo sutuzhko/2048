@@ -1,0 +1,61 @@
+/* Дизайн-токены из хендофф-спеки. Единый источник цвета для DOM; canvas читает те же переменные. */
+:root {
+  --bg: #f7f4ec;
+  --board: #bcae9e;
+  --cell: #cebfad;
+  --panel: #efe9df;
+  --fg: #5c5248;
+  --muted: #8a7e70;
+  --accent: #e7852f;
+  --button: #8f7a66;
+  --button-fg: #f7f4ec;
+  --line: rgba(92, 82, 72, 0.14);
+  --overlay: rgba(247, 244, 236, 0.8);
+
+  --radius-board: 14px;
+  --radius-tile: 9px;
+  --radius-panel: 12px;
+  --radius-btn: 10px;
+
+  --t2-bg: #eee4da;
+  --t4-bg: #ede0c8;
+  --t8-bg: #f4b17a;
+  --t16-bg: #f79663;
+  --t32-bg: #f77f5f;
+  --t64-bg: #f65e3b;
+  --t128-bg: #edd073;
+  --t256-bg: #edcd63;
+  --t512-bg: #edc850;
+  --t1024-bg: #edc53f;
+  --t2048-bg: #edc22e;
+  --t-super-bg: #3c3a34;
+  --t-super-fg: #f4d97a;
+}
+
+[data-theme='dark'] {
+  --bg: #161418;
+  --board: #26232b;
+  --cell: #302c37;
+  --panel: #221f28;
+  --fg: #ece5d8;
+  --muted: #8f857a;
+  --accent: #f2a35a;
+  --button: #d79154;
+  --button-fg: #1c1a1f;
+  --line: rgba(236, 229, 216, 0.12);
+  --overlay: rgba(20, 18, 22, 0.82);
+
+  --t2-bg: #3b3742;
+  --t4-bg: #454050;
+  --t8-bg: #e08a4a;
+  --t16-bg: #e77a43;
+  --t32-bg: #ec6a4e;
+  --t64-bg: #ef5330;
+  --t128-bg: #e7c25a;
+  --t256-bg: #e9c34e;
+  --t512-bg: #ecc13f;
+  --t1024-bg: #efbd33;
+  --t2048-bg: #f4bd2a;
+  --t-super-bg: #0f0e12;
+  --t-super-fg: #f4d97a;
+}
