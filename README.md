@@ -10,7 +10,7 @@
 [![Playwright](https://img.shields.io/badge/Playwright-e2e-2ead33)](https://playwright.dev/)
 [![FSD](https://img.shields.io/badge/architecture-Feature--Sliced%20Design-2b6cb0)](https://feature-sliced.design/)
 
-**▶ Демо:** https://julfy-bs.github.io/2048/
+**▶ Демо:** https://sutuzhko.github.io/2048/
 
 <p align="center">
   <img src="docs/demo.gif" width="440" alt="Геймплей 2048 (тёмная тема)">
